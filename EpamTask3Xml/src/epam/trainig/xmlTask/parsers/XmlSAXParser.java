@@ -1,9 +1,9 @@
 package epam.trainig.xmlTask.parsers;
 
+import epam.trainig.xmlTask.convertedFromXsd.Medicine;
+
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
-import epam.trainig.xmlTask.convertedFromXsd.Medicine;
 
 /**
  * Class that parses XML document using SAX Parser
@@ -13,7 +13,9 @@ import epam.trainig.xmlTask.convertedFromXsd.Medicine;
  */
 
 public class XmlSAXParser extends XmlParser {
-	SAXOne saxResult = new SAXOne();
+
+    // какой моджификатор доступа?
+    SAXOne saxResult = new SAXOne();
 
 	/**
 	 * Parses XML file using SAX Parser and puts gotten information to
@@ -24,10 +26,11 @@ public class XmlSAXParser extends XmlParser {
 	 */
 	public void parseXML(String xmlSource) {
 		SAXParserFactory spf = SAXParserFactory.newInstance();
-		SAXParser sp = null;
+
+        //объявление SAXParser sp можно внести в try блок
+        SAXParser sp = null;
 
 		try {
-
 			sp = spf.newSAXParser();
 			sp.parse(xmlSource, saxResult);
 

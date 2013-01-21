@@ -1,14 +1,16 @@
 package epam.trainig.xmlTask.parsers;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import epam.trainig.xmlTask.convertedFromXsd.Drug;
+import epam.trainig.xmlTask.convertedFromXsd.Medicine;
+import epam.trainig.xmlTask.convertedFromXsd.ObjectFactory;
+import epam.trainig.xmlTask.convertedFromXsd.Version;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import epam.trainig.xmlTask.convertedFromXsd.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * Class that parses XML document using DOM Parser
@@ -16,8 +18,11 @@ import epam.trainig.xmlTask.convertedFromXsd.*;
  * @author dima
  * 
  */
+
+//этот класс лучше назвать DOMXmlParser, так как его предок называется XmlParserб значит надо просто прибавить суффикс DOM
 public class XmlDOMParser extends XmlParser {
-	Medicine currMedicine = null;
+	//модификатор доступа?
+    Medicine currMedicine = null;
 
 	@Override
 	/**
@@ -113,7 +118,8 @@ public class XmlDOMParser extends XmlParser {
 	 */
 	private static Element getBaby(Element parent, String childName) {
 		NodeList nlist = parent.getElementsByTagName(childName);
-		Element child = (Element) nlist.item(0);
+        //лишняя локальная переменная, можно просто return (Element) nlist.item(0);
+        Element child = (Element) nlist.item(0);
 		return child;
 	}
 	/**
@@ -129,7 +135,9 @@ public class XmlDOMParser extends XmlParser {
 	private static String getBabyValue(Element parent, String childName) {
 		Element child = getBaby(parent, childName);
 		Node node = child.getFirstChild();
-		String value = node.getNodeValue();
+
+        //лишняя локальная переменная, можно просто return node.getNodeValue();
+        String value = node.getNodeValue();
 		return value;
 	}
 	/**
@@ -144,6 +152,7 @@ public class XmlDOMParser extends XmlParser {
 	private static String getBabyAttrValue(Element parent, String childName,
 			String attrName) {
 		Element child = getBaby(parent, childName);
+        //то же самое
 		String value = child.getAttribute(attrName);
 		return value;
 	}

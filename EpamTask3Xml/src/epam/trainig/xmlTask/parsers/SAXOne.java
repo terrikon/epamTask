@@ -13,7 +13,8 @@ import epam.trainig.xmlTask.convertedFromXsd.*;
  * 
  */
 public class SAXOne extends DefaultHandler {
-	ObjectFactory factory = new ObjectFactory();
+	//модификаторы доступа!!!
+    ObjectFactory factory = new ObjectFactory();
 	Medicine med = factory.createMedicine();
 	Drug curr;
 	Version currVersion;
@@ -92,7 +93,11 @@ public class SAXOne extends DefaultHandler {
 		// System.out.println(s);
 
 		switch (currEnum) {
-
+        // {} не забываем=)))
+        /*типа   case NAME:
+            {if (length != 0)
+                    curr.setName(s);
+                break;}*/
 		case NAME:
 			if (length != 0)
 				curr.setName(s);
