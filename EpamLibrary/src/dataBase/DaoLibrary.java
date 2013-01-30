@@ -9,14 +9,18 @@ public class DaoLibrary {
 
 	public static Connection startConnection() {
 		try {
+			Class.forName("com.mysql.jdbc.Driver");
 			c = DriverManager
 					.getConnection("jdbc:mysql://localhost:3306/Library?"
 							+ "user=root");
 
 		} catch (SQLException e) {
-			System.out.println(e);
+			e.printStackTrace();
 
+		}catch (ClassNotFoundException e){
+			e.printStackTrace();
 		}
+		
 		return c;
 
 	}
@@ -29,7 +33,7 @@ public class DaoLibrary {
 			c.close();
 
 		} catch (SQLException e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 	}
 }

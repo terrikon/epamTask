@@ -2,12 +2,14 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataBase.DaoLibrary;
 import dataBase.User;
 import dataBase.UserDaoLibrary;
 
@@ -21,8 +23,7 @@ public class LoginController extends HttpServlet {
 		PrintWriter out= resp.getWriter();
 		out.println("<html>");
 		out.println("<head>");
-		User user=UserDaoLibrary.getUserByLogin("dima");
-		System.out.println("adfkmfdkf");
+		User user=UserDaoLibrary.getUserByLogin(login);
 		out.println("login is "+user.getLogin() + "  " + user.getPass());
 		out.println("</head>");
 		out.println("</html>");

@@ -28,7 +28,7 @@ public class UserDaoLibrary {
 			DaoLibrary.stopConnection();
 
 		} catch (SQLException e) {
-
+			e.printStackTrace();
 		}
 
 		return currUser;
