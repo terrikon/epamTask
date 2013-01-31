@@ -1,0 +1,10 @@
+#IDEA files
+*.iml
+*/.idea/*
+.idea/*
+
+#eclipse files
+bin/*
+dist/
+
+
