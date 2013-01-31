@@ -5,7 +5,6 @@ public class User {
 	private String login="";
 	private String pass="";
 	private int access=2;
-
 	public int getId() {
 		return id;
 	}
