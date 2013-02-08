@@ -6,5 +6,5 @@
 #eclipse files
 bin/*
 dist/
-
+build/
 
