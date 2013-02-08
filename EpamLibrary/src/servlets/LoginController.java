@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dataBase.*;
 
@@ -23,12 +25,12 @@ public class LoginController extends HttpServlet {
 
 		User LibUser = UserDaoLibrary.getUserByLogin(login);
 		if (pass.equals(LibUser.getPass()) && (LibUser.getAccess() == 0)) {
-			List<Book> books = BookDaoLibrary.getBookAll();
-			req.setAttribute("books", books);
-			req.setAttribute("login", " " + login + "!");
+			HttpSession session = req.getSession();
+			session.setAttribute("login", login);
 			goToPage("/librarian.jsp", req, resp);
 		} else if (pass.equals(LibUser.getPass()) && (LibUser.getAccess() == 1)) {
-			req.setAttribute("login", " " + login + "!");
+			HttpSession session = req.getSession();
+			session.setAttribute("login","Welcome, "+ login+" ");
 			goToPage("/user.jsp", req, resp);
 		} else {
 			req.setAttribute("note", "There is no such Login or Password!");

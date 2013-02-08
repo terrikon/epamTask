@@ -7,60 +7,96 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.naming.NamingException;
+
 public class BookDaoLibrary {
 	private static PreparedStatement ps;
 	private static LinkedList<Book> books = new LinkedList<Book>();
+	private static ResultSet result;
+	private static Connection c;
 
-	private static List<Book> getBookById(int value) {
+	public static List<Book> getBookById(int value) {
 		books.clear();
-		Connection c = DaoLibrary.startConnection();
 		try {
+			c = DaoLibrary.startConnection();
+
 			ps = c.prepareStatement("SELECT * FROM Book WHERE id =?;  ");
 			ps.setInt(1, value);
-			ResultSet result = ps.executeQuery();
+			result = ps.executeQuery();
 			addNewBooks(result);
-			DaoLibrary.stopConnection();
 
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 
+		finally {
+
+			DaoLibrary.softStop(result);
+			DaoLibrary.softStop(ps);
+			DaoLibrary.softStop(c);
+
+		}
 		return books;
 
 	}
 
 	public static List<Book> getBookByName(String bookName) {
 		books.clear();
-		Connection c = DaoLibrary.startConnection();
 		try {
+			c = DaoLibrary.startConnection();
+
 			ps = c.prepareStatement("SELECT * FROM Book WHERE name =?;  ");
 			ps.setString(1, bookName);
 			ResultSet result = ps.executeQuery();
 			addNewBooks(result);
-			DaoLibrary.stopConnection();
 
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 
+		finally {
+
+			DaoLibrary.softStop(result);
+			DaoLibrary.softStop(ps);
+			DaoLibrary.softStop(c);
+
+		}
 		return books;
 
 	}
 
 	public static List<Book> getBookAll() {
 		books.clear();
-
-		Connection c = DaoLibrary.startConnection();
 		try {
+			Connection c = DaoLibrary.startConnection();
+
 			ps = c.prepareStatement("SELECT * FROM Book;");
 			ResultSet result = ps.executeQuery();
 			addNewBooks(result);
-			DaoLibrary.stopConnection();
 
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 
+		finally {
+
+			DaoLibrary.softStop(result);
+			DaoLibrary.softStop(ps);
+			DaoLibrary.softStop(c);
+
+		}
 		return books;
 
 	}

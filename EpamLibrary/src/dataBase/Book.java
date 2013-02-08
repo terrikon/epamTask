@@ -1,15 +1,12 @@
 package dataBase;
 
 
-import java.util.LinkedList;
-
 public class Book {
 	private int id;
 	private String name;
 	private String author;
 	private int year;
 	private int availability;
-	private LinkedList<Book> books;
 
 	public int getId() {
 		return id;
@@ -51,4 +48,15 @@ public class Book {
 		availability = BookAvailability;
 	}
 
+	@Override
+	public String toString() {
+		String available = "";
+		if (getAvailability() == 0) {
+			available = "availabe";
+		} else
+			available = "not available";
+
+		return "<tr><td>"+ getId()+ "</td>" + "<td> " + getName()+"</td>"
+		+ "<td>" + getAuthor()+"</td>" + "<td>" + available+ "</td></tr>";
+	}
 }
