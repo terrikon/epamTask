@@ -52,11 +52,12 @@ public class Book {
 	public String toString() {
 		String available = "";
 		if (getAvailability() == 0) {
-			available = "availabe";
+			available = "available";
 		} else
 			available = "not available";
 
 		return "<tr><td>"+ getId()+ "</td>" + "<td> " + getName()+"</td>"
-		+ "<td>" + getAuthor()+"</td>" + "<td>" + available+ "</td></tr>";
+		+ "<td>" + getAuthor()+"</td>" + "<td>"+ getYear()+"</td>" 
+		+ "<td>" + available+ "</td></tr>";
 	}
 }

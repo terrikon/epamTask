@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 import dataBase.Book;
-import dataBase.BookDaoLibrary;
+import dataBase.dao.BookDaoLibrary;
 
 public class GetBooksTag extends TagSupport {
 	private String bookName;
@@ -23,10 +23,11 @@ public class GetBooksTag extends TagSupport {
 
 		try {
 			JspWriter out = pageContext.getOut();
-			if (!books.isEmpty()) {
+			
+			 if (!books.isEmpty()) {
 
-				out.write("<table><tr><td>ID</td><td>Name</td><td>Author</td>"
-						+ "<td>Availability</td></tr>");
+				out.write(" <table><tr><td>ID</td><td>Name</td><td>Author</td>"
+						+ "<td>Year</td><td>Availability</td></tr>");
 
 				for (Book book : books) {
 
@@ -37,7 +38,6 @@ public class GetBooksTag extends TagSupport {
 				out.write("There is no such book");
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

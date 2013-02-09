@@ -1,4 +1,4 @@
-package dataBase;
+package dataBase.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,19 +9,46 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import dataBase.Book;
+
 public class BookDaoLibrary {
 	private static PreparedStatement ps;
 	private static LinkedList<Book> books = new LinkedList<Book>();
 	private static ResultSet result;
 	private static Connection c;
 
-	public static List<Book> getBookById(int value) {
+	public static void setBookAvailability(String bookId, int bookAvailability) {
+		try {
+			c = DaoLibrary.startConnection();
+			ps = c.prepareStatement("UPDATE Library.Book SET availability=? "
+					+ "WHERE id=?;");
+			ps.setString(2, bookId);
+			ps.setInt(1, bookAvailability);
+			System.out.println(ps);
+			ps.executeUpdate();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+
+		finally {
+
+			DaoLibrary.softStop(ps);
+			DaoLibrary.softStop(c);
+		}
+	}
+
+	public static List<Book> getBookById(String value) {
 		books.clear();
 		try {
 			c = DaoLibrary.startConnection();
 
 			ps = c.prepareStatement("SELECT * FROM Book WHERE id =?;  ");
-			ps.setInt(1, value);
+			ps.setString(1, value);
 			result = ps.executeQuery();
 			addNewBooks(result);
 

@@ -19,4 +19,21 @@
 		</attribute>
 		<body-content>empty</body-content>
 	</tag>
+	<tag>
+		<name>makeOrder</name>
+		<!--класс обработки тега -->
+		<tag-class>libraryTags.MakeOrderTag</tag-class>
+		<attribute>
+			<name>userId</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>bookId</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<body-content>empty</body-content>
+	</tag>
+	
 </taglib>

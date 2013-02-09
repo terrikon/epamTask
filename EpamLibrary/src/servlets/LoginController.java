@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dataBase.*;
+import dataBase.dao.UserDaoLibrary;
 
 public class LoginController extends HttpServlet {
 	@Override
@@ -30,7 +31,7 @@ public class LoginController extends HttpServlet {
 			goToPage("/librarian.jsp", req, resp);
 		} else if (pass.equals(LibUser.getPass()) && (LibUser.getAccess() == 1)) {
 			HttpSession session = req.getSession();
-			session.setAttribute("login","Welcome, "+ login+" ");
+			session.setAttribute("login",login);
 			goToPage("/user.jsp", req, resp);
 		} else {
 			req.setAttribute("note", "There is no such Login or Password!");
