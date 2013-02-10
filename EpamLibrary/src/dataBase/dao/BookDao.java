@@ -1,23 +1,24 @@
 package dataBase.dao;
 
+import dataBase.Book;
+
+import javax.naming.NamingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.NamingException;
 
-import dataBase.Book;
+//смотри, я убираю поля books и result, когда в Киеве буду, объясню подробно почему
 
-public class BookDaoLibrary {
-	private static PreparedStatement ps;
-	private static LinkedList<Book> books = new LinkedList<Book>();
-	private static ResultSet result;
-	private static Connection c;
+public class BookDao {
 
-	public static void setBookAvailability(String bookId, int bookAvailability) {
+    private PreparedStatement ps;
+	private Connection c;
+
+	public void setBookAvailability(String bookId, int bookAvailability) {
 		try {
 			c = DaoLibrary.startConnection();
 			ps = c.prepareStatement("UPDATE Library.Book SET availability=? "
@@ -42,15 +43,15 @@ public class BookDaoLibrary {
 		}
 	}
 
-	public static List<Book> getBookById(String value) {
-		books.clear();
+	public Book getBookById(String value) {
+		Book book = new Book();
 		try {
 			c = DaoLibrary.startConnection();
 
 			ps = c.prepareStatement("SELECT * FROM Book WHERE id =?;  ");
 			ps.setString(1, value);
-			result = ps.executeQuery();
-			addNewBooks(result);
+            ResultSet result = ps.executeQuery();
+			book = parseBook(result);
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -62,24 +63,25 @@ public class BookDaoLibrary {
 
 		finally {
 
-			DaoLibrary.softStop(result);
 			DaoLibrary.softStop(ps);
 			DaoLibrary.softStop(c);
 
 		}
-		return books;
+		return book;
 
 	}
 
-	public static List<Book> getBookByName(String bookName) {
-		books.clear();
-		try {
-			c = DaoLibrary.startConnection();
 
+    //зачем здесь возвращать список книг? ведь нужна только одна
+	public Book getBookByName(String bookName) {
+        Book book = new Book();
+		try {
+
+			c = DaoLibrary.startConnection();
 			ps = c.prepareStatement("SELECT * FROM Book WHERE name =?;  ");
 			ps.setString(1, bookName);
 			ResultSet result = ps.executeQuery();
-			addNewBooks(result);
+			book = parseBook(result);
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -91,23 +93,23 @@ public class BookDaoLibrary {
 
 		finally {
 
-			DaoLibrary.softStop(result);
 			DaoLibrary.softStop(ps);
 			DaoLibrary.softStop(c);
 
 		}
-		return books;
+		return book;
 
 	}
 
-	public static List<Book> getBookAll() {
-		books.clear();
+    //method renamed
+	public List<Book> getAllBooks() {
+		List<Book> books = new ArrayList<Book>();
 		try {
 			Connection c = DaoLibrary.startConnection();
 
 			ps = c.prepareStatement("SELECT * FROM Book;");
 			ResultSet result = ps.executeQuery();
-			addNewBooks(result);
+			addNewBooks(result, books);
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -119,7 +121,6 @@ public class BookDaoLibrary {
 
 		finally {
 
-			DaoLibrary.softStop(result);
 			DaoLibrary.softStop(ps);
 			DaoLibrary.softStop(c);
 
@@ -128,19 +129,23 @@ public class BookDaoLibrary {
 
 	}
 
-	private static List<Book> addNewBooks(ResultSet bookResult)
+	private List<Book> addNewBooks(ResultSet booksResultSet, List<Book> books)
 			throws SQLException {
 		Book currBook;
-		while (bookResult.next()) {
-			currBook = new Book();
-			currBook.setId(bookResult.getInt("id"));
-			currBook.setName(bookResult.getString("name"));
-			currBook.setAuthor(bookResult.getString("author"));
-			currBook.setYear(bookResult.getInt("year"));
-			currBook.setAvailability(bookResult.getInt("availability"));
-			books.add(currBook);
+		while (booksResultSet.next()) {
+			books.add(parseBook(booksResultSet));
 		}
 		return books;
 	}
+
+    private Book parseBook(ResultSet booksResultSet) throws SQLException{
+        Book book = new Book();
+        book.setId(booksResultSet.getInt("id"));
+        book.setName(booksResultSet.getString("name"));
+        book.setAuthor(booksResultSet.getString("author"));
+        book.setYear(booksResultSet.getInt("year"));
+        book.setAvailability(booksResultSet.getInt("availability"));
+        return  book;
+    }
 
 }

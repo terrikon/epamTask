@@ -1,15 +1,15 @@
 package dataBase.dao;
 
+import dataBase.User;
+
+import javax.naming.NamingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.naming.NamingException;
-
-import dataBase.User;
-
-public class UserDaoLibrary {
+//этот класс надо переименовать в UserDao, потому что он не имеет отношения к библиотеке
+public class UserDao {
 	private static PreparedStatement ps;
 	private static Connection c;
 	private static ResultSet result;
