@@ -6,6 +6,8 @@
 #eclipse files
 bin/*
 dist/
+dist/*
 build/
+build/*
 
 *.class
