@@ -1,10 +1,10 @@
 package dataBase;
 
 public class User {
-	private int id=0;
-	private String login="";
-	private String pass="";
-	private int access=2;
+	private int id;
+	private String login;
+	private String pass;
+	private int access;
 	public int getId() {
 		return id;
 	}

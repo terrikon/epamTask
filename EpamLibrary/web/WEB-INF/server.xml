@@ -1,8 +1,6 @@
-
 <Context docBase="FirstProject" path="/FirstProject"
 reloadable="true" source="com.ibm.etools.webtools.server:
 FirstProject">
-<!—создание пул соединений для СУБД MySQL -->
 	<Resource auth="Container" name="jdbc/Library"
 							   type="javax.sql.DataSource"/>
 	<ResourceParams name="jdbc/Library">

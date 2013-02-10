@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataBase.DaoLibrary;
 import dataBase.User;
-import dataBase.UserDaoLibrary;
+import dataBase.dao.DaoLibrary;
+import dataBase.dao.UserDaoLibrary;
 
 public class TestServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)

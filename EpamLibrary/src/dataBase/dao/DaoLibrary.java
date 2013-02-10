@@ -1,4 +1,4 @@
-package dataBase;
+package dataBase.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,13 +20,12 @@ public class DaoLibrary {
 		
 	
 		Class.forName("com.mysql.jdbc.Driver");
-		javax.naming.Context ct =
-				new javax.naming.InitialContext();
-				DataSource ds = (DataSource)ct.lookup("java:/comp/env/jdbc/Library");
-				Connection cn = ds.getConnection("root", "root");
-	//	 c = DriverManager
-	//	 .getConnection("jdbc:mysql://localhost:3306/Library?"
-	//	 + "user=root");
+//		javax.naming.Context ct =
+//			new javax.naming.InitialContext();
+//				DataSource ds = (DataSource)ct.lookup("java:/comp/env/jdbc/Library");
+//				Connection c = ds.getConnection("root", "root");
+		 c = DriverManager
+		 .getConnection("jdbc:mysql://localhost:3306/Library","root","root");
 
 		return c;
 

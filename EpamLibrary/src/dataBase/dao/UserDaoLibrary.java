@@ -1,4 +1,4 @@
-package dataBase;
+package dataBase.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.naming.NamingException;
+
+import dataBase.User;
 
 public class UserDaoLibrary {
 	private static PreparedStatement ps;
